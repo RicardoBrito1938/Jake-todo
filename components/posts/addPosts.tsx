@@ -35,7 +35,6 @@ const AddPost = () => {
   const dispatch = useDispatch();
 
   const onSubmit = () => {
-    console.log(value);
     dispatch(
       addPost({
         post: value

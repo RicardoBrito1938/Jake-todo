@@ -27,14 +27,17 @@ export const PostSlice = createSlice({
       return state.filter((item: Task) => item.id !== action.payload.id);
     },
 
-    taskDone: state => {
-      // toggleActive: state => {
-      //   // state.done = !state.done;
-      // };
+    isDone: (state, action) => {
+      const task = state.find(item => item.id == action.payload.id);
+      if (task) {
+        task.done = !task.done;
+      }
     }
   }
 });
 
-export const { addPost, deletePost, taskDone } = PostSlice.actions;
+//  state.filter(item => item.done).length;
+
+export const { addPost, deletePost, isDone } = PostSlice.actions;
 
 export default PostSlice.reducer;

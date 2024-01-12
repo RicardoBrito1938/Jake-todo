@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     position: "absolute"
   },
   button: {
-    backgroundColor: "#70b9fd",
+    backgroundColor: "#1E6F9F",
     width: 50,
     height: 50,
     borderRadius: 4,

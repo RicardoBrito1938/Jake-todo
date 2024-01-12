@@ -2,8 +2,8 @@ import {
   ScrollView,
   StyleSheet,
   View,
-  KeyboardAvoidingView,
-  Platform
+  Image,
+  KeyboardAvoidingView
 } from "react-native";
 import PostList from "./components/posts/postsList";
 import { StatusBar } from "expo-status-bar";
@@ -18,11 +18,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
-    backgroundColor: "#484848",
+    backgroundColor: "#1A1A1A",
     height: "75%"
   },
   TopSection: {
-    backgroundColor: "#000",
+    backgroundColor: "#0D0D0D",
     width: "100%",
     height: "25%",
     position: "absolute",
@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     flex: 1,
-    marginHorizontal: 40,
     justifyContent: "space-between",
     flexDirection: "row",
     bottom: "60%",
@@ -41,47 +40,46 @@ const styles = StyleSheet.create({
     paddingBottom: 24
   },
   subTitleCreated: {
-    color: "#fbfbfb",
+    color: "#4EA8DE",
     fontWeight: "bold",
     fontSize: 18
   },
-  createdCount: {
+  createdCount: {},
+  Count: {
     color: "#fbfbfb",
     fontWeight: "bold",
-    fontSize: 20,
-    backgroundColor: "grey",
+    fontSize: 16,
+    backgroundColor: "#333333",
+    width: 25,
+    height: 20,
     borderRadius: 100,
-    alignContent: "flex-start",
-    justifyContent: "flex-start",
-    width: 30,
-    height: 30,
     marginHorizontal: 5,
-    textAlign: "center"
-  },
-  doneCount: {
-    color: "#fbfbfb",
-    fontWeight: "bold",
-    fontSize: 20,
-    backgroundColor: "grey",
-    width: 30,
-    height: 30,
-    borderRadius: 100,
-    justifyContent: "center",
-    marginHorizontal: 5,
+    marginVertical: 5,
     textAlign: "center"
   },
   subTitleDone: {
-    color: "#fbfbfb",
+    color: "#8284FA",
     fontWeight: "bold",
     fontSize: 18
   },
-  pageTitle: {
-    color: "#fbfbfb",
-    width: "100%",
+  pageTitleTo: {
+    color: "#4EA8DE",
     fontWeight: "bold",
-    fontSize: 34,
+    fontSize: 40
+  },
+  pageTitleDo: {
+    color: "#5E60CE",
+    fontWeight: "bold",
+    fontSize: 40
+  },
+  titleView: {
+    flexDirection: "row",
+    position: "absolute",
     justifyContent: "center",
-    backgroundColor: "red"
+    top: 110,
+    width: "100%",
+    alignItems: "center",
+    alignContent: "center"
   },
   postList: {
     alignItems: "center",
@@ -89,6 +87,9 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "50%",
     top: 200
+  },
+  icon: {
+    margin: 6
   }
 });
 
@@ -102,18 +103,37 @@ export default function Main() {
   return (
     <>
       <StatusBar style="light" />
-
-      <View style={styles.container}>
-        <View style={styles.TopSection} />
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        {/* <View style={styles.container}> */}
+        <View style={styles.TopSection}>
+          <View style={styles.titleView}>
+            <Image
+              source={require("./assets/rocket.png")}
+              style={styles.icon}
+            />
+            <T style={styles.pageTitleTo}>to</T>
+            <T style={styles.pageTitleDo}>do</T>
+          </View>
+        </View>
         <AddPost />
         <View style={styles.subTitle}>
-          <View style={{ flexDirection: "row" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center"
+            }}
+          >
             <T style={styles.subTitleCreated}>created</T>
-            <T style={styles.createdCount}>{createdCounter}</T>
+            <T style={styles.Count}>{createdCounter}</T>
           </View>
-          <View style={{ flexDirection: "row" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center"
+            }}
+          >
             <T style={styles.subTitleDone}>Done</T>
-            <T style={styles.doneCount}>{doneCounter}</T>
+            <T style={styles.Count}>{doneCounter}</T>
           </View>
         </View>
         <View style={styles.postList}>
@@ -121,7 +141,8 @@ export default function Main() {
             <PostList />
           </ScrollView>
         </View>
-      </View>
+        {/* </View> */}
+      </KeyboardAvoidingView>
     </>
   );
 }

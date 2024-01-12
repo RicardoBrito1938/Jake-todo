@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { deletePost, isDone } from "../../features/posts/postSlice";
 import b from "../UI/Button/index";
 import { c } from "../UI/Card/index";
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 
 const styles = StyleSheet.create({
   item: {
@@ -11,24 +11,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#656565",
+    backgroundColor: "#262626",
     marginVertical: 8,
-    borderColor: "#717171"
+    borderColor: "#333333"
   },
-  removeButton: {
-    borderRadius: 100,
-    backgroundColor: "grey",
-    alignItems: "center",
-    justifyContent: "center",
-    height: 30,
-    width: 30
-  },
+  removeButton: { paddingBottom: 10, paddingTop: 0, margin: 0 },
   itemText: {
-    color: "white"
+    color: "white",
+    textAlign: "center"
   },
   checkBox: {
     borderRadius: 100,
-    backgroundColor: "#087ea4",
+    borderWidth: 2,
+    borderColor: "#4EA8DE",
     height: 20,
     width: 20,
     alignItems: "center",
@@ -53,8 +48,6 @@ const PostItem = ({
   content: string;
   done: boolean;
 }) => {
-  const [isPressed, setIsPressed] = useState(false);
-
   const dispatch = useDispatch();
 
   const RemovePost = () => {
@@ -65,7 +58,7 @@ const PostItem = ({
     );
   };
 
-  const Done = () => {
+  const taskDone = () => {
     dispatch(
       isDone({
         id: id
@@ -73,23 +66,23 @@ const PostItem = ({
     );
   };
 
-  const handlePress = () => {
-    setIsPressed(!isPressed);
-    Done();
-  };
-
   return (
     <View style={{ flexDirection: "row" }}>
       <c.root style={styles.item}>
         <b.root
-          style={isPressed ? styles.checkBoxDone : styles.checkBox}
-          onPress={handlePress}
+          style={done ? styles.checkBoxDone : styles.checkBox}
+          onPress={taskDone}
         />
         <View style={{ width: "80%" }}>
           <c.text style={styles.itemText}>{content}</c.text>
         </View>
-        <b.root onPress={RemovePost} style={styles.removeButton}>
-          <b.text>-</b.text>
+        <b.root onPress={RemovePost}>
+          <b.text style={styles.removeButton}>
+            <Image
+              source={require("../../assets/bin.png")}
+              style={{ width: 30, height: 20 }}
+            />
+          </b.text>
         </b.root>
       </c.root>
     </View>

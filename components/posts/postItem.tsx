@@ -1,34 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { deletePost, taskDone } from "../../features/posts/postSlice";
+import { deletePost, isDone } from "../../features/posts/postSlice";
 import b from "../UI/Button/index";
 import { c } from "../UI/Card/index";
-import { StyleSheet, View } from "react-native";
-import Checkbox from "expo-checkbox";
+import { Image, StyleSheet, View } from "react-native";
 
 const styles = StyleSheet.create({
   item: {
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#656565",
+    backgroundColor: "#262626",
     marginVertical: 8,
-    borderColor: "#717171"
+    borderColor: "#333333"
   },
-  removeButton: {
-    borderRadius: 100,
-    backgroundColor: "grey",
-    alignItems: "center",
-    justifyContent: "center",
-    height: 30,
-    width: 30
-  },
+  removeButton: { paddingBottom: 10, paddingTop: 0, margin: 0 },
   itemText: {
-    color: "white"
+    color: "white",
+    textAlign: "center"
   },
   checkBox: {
     borderRadius: 100,
-    borderColor: "#ffffff"
+    borderWidth: 2,
+    borderColor: "#4EA8DE",
+    height: 20,
+    width: 20,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  checkBoxDone: {
+    borderRadius: 100,
+    backgroundColor: "#527717",
+    height: 20,
+    width: 20,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 
@@ -42,7 +49,6 @@ const PostItem = ({
   done: boolean;
 }) => {
   const dispatch = useDispatch();
-  const [isChecked, setChecked] = useState();
 
   const RemovePost = () => {
     dispatch(
@@ -52,29 +58,31 @@ const PostItem = ({
     );
   };
 
-  const Done = () => {
+  const taskDone = () => {
     dispatch(
-      taskDone({
-        done: done
+      isDone({
+        id: id
       })
     );
   };
 
-  console.log(done);
-  console.log(content, "content");
   return (
-    <View>
+    <View style={{ flexDirection: "row" }}>
       <c.root style={styles.item}>
-        <Checkbox
-          onChange={Done}
-          style={styles.checkBox}
-          value={isChecked}
-          color={isChecked ? "#74d4ec" : undefined}
-          onValueChange={setChecked}
+        <b.root
+          style={done ? styles.checkBoxDone : styles.checkBox}
+          onPress={taskDone}
         />
-        <c.text style={styles.itemText}>{content}</c.text>
-        <b.root onPress={RemovePost} style={styles.removeButton}>
-          <b.text>-</b.text>
+        <View style={{ width: "80%" }}>
+          <c.text style={styles.itemText}>{content}</c.text>
+        </View>
+        <b.root onPress={RemovePost}>
+          <b.text style={styles.removeButton}>
+            <Image
+              source={require("../../assets/bin.png")}
+              style={{ width: 30, height: 20 }}
+            />
+          </b.text>
         </b.root>
       </c.root>
     </View>

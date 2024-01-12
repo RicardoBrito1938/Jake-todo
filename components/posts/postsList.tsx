@@ -6,12 +6,11 @@ import { useAppSelector } from "../../store";
 
 const PostList = () => {
   const posts = useAppSelector(state => state.posts);
-  console.log(posts, "posts");
+  console.log(posts);
 
   const Created = () => {
     return posts.length;
   };
-  console.log(Created);
 
   return (
     <c.text>

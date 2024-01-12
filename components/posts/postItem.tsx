@@ -4,10 +4,10 @@ import { deletePost, isDone } from "../../features/posts/postSlice";
 import b from "../UI/Button/index";
 import { c } from "../UI/Card/index";
 import { StyleSheet, View } from "react-native";
-import Checkbox from "expo-checkbox";
 
 const styles = StyleSheet.create({
   item: {
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -28,7 +28,19 @@ const styles = StyleSheet.create({
   },
   checkBox: {
     borderRadius: 100,
-    borderColor: "#ffffff"
+    backgroundColor: "#087ea4",
+    height: 20,
+    width: 20,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  checkBoxDone: {
+    borderRadius: 100,
+    backgroundColor: "#527717",
+    height: 20,
+    width: 20,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 
@@ -41,8 +53,9 @@ const PostItem = ({
   content: string;
   done: boolean;
 }) => {
+  const [isPressed, setIsPressed] = useState(false);
+
   const dispatch = useDispatch();
-  const [isChecked, setChecked] = useState<boolean>();
 
   const RemovePost = () => {
     dispatch(
@@ -60,17 +73,21 @@ const PostItem = ({
     );
   };
 
+  const handlePress = () => {
+    setIsPressed(!isPressed);
+    Done();
+  };
+
   return (
-    <View>
+    <View style={{ flexDirection: "row" }}>
       <c.root style={styles.item}>
-        <Checkbox
-          onChange={Done}
-          style={styles.checkBox}
-          value={isChecked}
-          color={isChecked ? "#74d4ec" : undefined}
-          onValueChange={isDone}
+        <b.root
+          style={isPressed ? styles.checkBoxDone : styles.checkBox}
+          onPress={handlePress}
         />
-        <c.text style={styles.itemText}>{content}</c.text>
+        <View style={{ width: "80%" }}>
+          <c.text style={styles.itemText}>{content}</c.text>
+        </View>
         <b.root onPress={RemovePost} style={styles.removeButton}>
           <b.text>-</b.text>
         </b.root>

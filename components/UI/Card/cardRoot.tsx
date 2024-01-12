@@ -8,9 +8,10 @@ export const CardRoot = styled(View, {
   borderRadius: 4,
   padding: 8,
   width: 300,
-  height: 50,
+  maxHeight: 300,
   fontSize: 16,
-  color: "#000"
+  color: "#000",
+  flexWrap: "wrap"
 });
 
 export default CardRoot;

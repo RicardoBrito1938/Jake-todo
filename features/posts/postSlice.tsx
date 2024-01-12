@@ -36,8 +36,6 @@ export const PostSlice = createSlice({
   }
 });
 
-//  state.filter(item => item.done).length;
-
 export const { addPost, deletePost, isDone } = PostSlice.actions;
 
 export default PostSlice.reducer;
